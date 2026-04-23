@@ -1,21 +1,31 @@
 # Smart Attendance & Analytics System
 
-A Django-based web application to manage and analyze student attendance with visualization support.
+A Django-based web application for managing student attendance and visualizing data using server-rendered templates.
 
 ---
 
 ## Features
 - Student attendance tracking
-- Data visualization (bar and pie charts)
+- Data visualization using charts (bar and pie)
 - Attendance import via scripts
-- Modular Django architecture
+- Server-side rendered UI using Django templates
 
 ---
 
 ## Tech Stack
-- Python (Django)
-- SQLite
-- Chart-based analytics
+- Backend: Django (Python)
+- Frontend: HTML, CSS, JavaScript (Django templates)
+- Database: SQLite
+
+---
+
+## Project Structure
+
+FDS4/
+│── myproject/        # Django project configuration  
+│── students/         # Core application  
+│── scripts/          # Utility scripts  
+│── manage.py  
 
 ---
 
@@ -35,10 +45,10 @@ python manage.py runserver
 ---
 
 ## Future Improvements
-- Authentication system (Login/Register)
-- REST API (Django REST Framework)
-- AI-based attendance insights
-- Frontend dashboard (React)
+- Add authentication system (login/register)
+- Build REST APIs using Django REST Framework
+- Improve UI/UX
+- Add predictive analytics for attendance trends
 
 ---
 
