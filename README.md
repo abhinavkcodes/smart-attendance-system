@@ -21,7 +21,7 @@ A Django-based web application for managing student attendance and visualizing d
 
 ## Project Structure
 
-FDS4/
+
 │── myproject/        # Django project configuration  
 │── students/         # Core application  
 │── scripts/          # Utility scripts  
