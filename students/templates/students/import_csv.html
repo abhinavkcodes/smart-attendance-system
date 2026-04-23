@@ -1,0 +1,40 @@
+﻿{% extends "students/base.html" %}
+{% load static %}
+{% block content %}
+  <div class="import-card max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Import students via CSV</h2>
+    <p class="text-sm text-gray-600 mb-4">Upload a CSV with the headers shown below. We'll parse and create students in bulk.</p>
+    <form id="import-form" method="post" enctype="multipart/form-data" class="space-y-4">
+      {% csrf_token %}
+
+      <!-- Hidden native file input -->
+      <input type="file" id="import-file-input" name="file" accept=".csv" class="sr-only" required>
+
+      <div class="flex items-center gap-3">
+        <!-- Custom choose button -->
+        <button id="choose-file-btn" type="button" class="btn btn-ghost inline-flex items-center px-4 py-2 border rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+          <i class="fas fa-folder-open mr-2"></i>
+          Choose CSV
+        </button>
+
+        <!-- Selected file name -->
+        <div id="selected-file-name" class="file-name text-sm text-gray-600 truncate">No file chosen</div>
+
+        <div class="ml-auto flex items-center space-x-2">
+          <button id="upload-btn" type="submit" class="btn btn-primary inline-flex items-center px-4 py-2 rounded-md text-sm font-medium" disabled aria-disabled="true">
+            <span class="btn-text"><i class="fas fa-upload mr-2"></i>Upload</span>
+            <i class="fas fa-spinner fa-spin spinner hidden ml-2" aria-hidden="true"></i>
+          </button>
+          <a class="btn btn-ghost inline-flex items-center px-3 py-2 border rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" href="{% url 'students:list' %}">
+            <i class="fas fa-times mr-2"></i>Cancel
+          </a>
+        </div>
+      </div>
+
+      <div class="text-sm text-gray-500">
+        CSV header: <code class="bg-gray-100 px-1 rounded">enrollment_no,first_name,last_name,email,dob,course,year,gpa,notes</code>
+      </div>
+  <div class="text-sm text-gray-500">Need an example? <a class="hover:underline text-[var(--accent)]" href="{% static 'students/csv/sample_students.csv' %}" download>Download sample CSV</a></div>
+    </form>
+  </div>
+{% endblock %}

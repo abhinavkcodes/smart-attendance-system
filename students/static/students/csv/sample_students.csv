@@ -1,0 +1,2 @@
+enrollment_no,first_name,last_name,email,dob,course,year,gpa,notes
+S001,John,Doe,john.doe@example.com,2000-01-15,Computer Science,2,3.5,Example student

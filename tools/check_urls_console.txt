@@ -1,0 +1,19 @@
+﻿Attempting to reverse students:... names
+OK  students:list -> /
+OK  students:add -> /add/
+OK  students:import_csv -> /import/
+OK  students:export_csv -> /export/
+OK  students:analytics -> /analytics/
+OK  students:attendance -> /attendance/
+OK  students:attendance_debug -> /attendance/debug/
+OK  students:attendance_export -> /attendance/export/
+OK  students:gpa_hist -> /charts/gpa.png
+OK  students:enrollment_trend -> /charts/enrollment.png
+OK  students:cgpa_analyzer -> /charts/cgpa_analyzer.png
+OK  students:dept_cgpa_heatmap -> /charts/dept_heatmap.png
+OK  students:detail -> /1/
+OK  students:edit -> /1/edit/
+OK  students:delete -> /1/delete/
+Admin analytics reverse: /admin/students/student/analytics/
+
+Wrote results to C:\Users\imabh\OneDrive\Desktop\FDS4\tools\check_urls_out.txt

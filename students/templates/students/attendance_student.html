@@ -1,0 +1,78 @@
+{% extends 'students/base.html' %}
+{% block title %}Attendance — {{ student.first_name }} {{ student.last_name }}{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <div class="card">
+    <div class="flex items-start gap-6">
+      <div class="w-24 h-24 bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+        {% if student.photo %}
+          <img src="{{ student.photo.url }}" alt="{{ student.first_name }}" class="object-cover w-full h-full">
+        {% else %}
+          <i class="fas fa-user-graduate text-3xl text-gray-400"></i>
+        {% endif %}
+      </div>
+      <div class="flex-1">
+        <div class="card-title">{{ student.first_name }} {{ student.last_name }}</div>
+        <p class="text-sm text-gray-600">Enrollment: <strong>{{ student.enrollment_no }}</strong></p>
+        <p class="text-sm text-gray-600">Course: <strong>{{ student.course }}</strong></p>
+        <p class="text-sm text-gray-600">Year: <strong>{{ student.get_year_display }}</strong></p>
+        <p class="text-sm text-gray-600">GPA: <strong>{{ student.gpa|default:'--' }}</strong></p>
+      </div>
+      <div class="text-right">
+        <a href="{% url 'students:detail' student.pk %}" class="inline-flex items-center px-3 py-2 border rounded-md text-gray-700 hover:bg-gray-50">View profile</a>
+      </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card text-center">
+        <div class="text-sm text-gray-500">Total Sessions</div>
+        <div class="text-2xl font-bold">{{ total }}</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-sm text-gray-500">Present</div>
+        <div class="text-2xl font-bold text-green-600">{{ present }}</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-sm text-gray-500">Attendance %</div>
+        <div class="text-2xl font-bold">{{ present_pct }}%</div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <div class="card">
+        <div class="card-title">Attendance Trend</div>
+        <img src="{{ chart_url }}" alt="Attendance trend" class="w-full h-auto">
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <div class="card">
+        <div class="card-title">Attendance Records</div>
+        <div class="overflow-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-gray-500 uppercase">
+                <th class="px-3 py-2">Date</th>
+                <th class="px-3 py-2">Status</th>
+                <th class="px-3 py-2">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in attendance_rows %}
+              <tr class="border-t">
+                <td class="px-3 py-2">{{ a.date }}</td>
+                <td class="px-3 py-2">{{ a.get_status_display }}</td>
+                <td class="px-3 py-2">{{ a.notes }}</td>
+              </tr>
+              {% empty %}
+              <tr><td class="px-3 py-2" colspan="3">No attendance records found for this period.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

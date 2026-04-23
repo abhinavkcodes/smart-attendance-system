@@ -1,0 +1,674 @@
+/* Theme variables (reverted to previous blue/gray theme) */
+:root {
+    --bg: #ffffff; /* white page background */
+    --card: #ffffff; /* card background */
+    --text: #1f2937; /* gray-800 */
+    --muted: #6b7280; /* gray-500 */
+    --accent: #3b82f6; /* blue-500 */
+    --accent-600: #2563eb; /* blue-600 */
+    --success: #10b981;
+    --success-700: #065f46;
+    --danger: #ef4444;
+    --danger-700: #9f1239;
+    --indigo: #6366f1;
+    --border: #e5e7eb; /* gray-200 */
+    --shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+    --bg: #0b1220; /* dark background */
+    --card: #071020; /* dark card */
+    --text: #e6eef8; /* light text */
+    --muted: #9aa6bf;
+    --primary: #2fabbe; /* brighter blue for dark */
+    --primary-700: #60a5fa;
+    --border: rgba(255,255,255,0.06);
+    --shadow: 0 4px 14px rgba(2,6,23,0.6);
+}
+
+/* Global page styles */
+body { background: var(--bg); color: var(--text); transition: background-color 200ms, color 200ms; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif; }
+
+/* Typography */
+html { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif; }
+h1, h2, h3, h4, h5 { color: var(--text); }
+
+/* Navigation */
+nav { background: var(--card); border-bottom: 1px solid var(--border); }
+nav a.nav-link { color: var(--muted); padding: 0.5rem 0.75rem; border-bottom: 2px solid transparent; display: inline-flex; align-items: center; gap: 0.5rem; }
+nav a.nav-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+nav .site-title { font-weight: 700; color: var(--text); }
+nav .logo-badge { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:10px; background:var(--border); }
+nav .right-actions { display:flex; gap:0.5rem; align-items:center; }
+
+/* Buttons */
+.btn-pill { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1rem; border-radius: 9999px; border: 1px solid transparent; cursor: pointer; }
+.btn-pill.primary { background: var(--accent); color: #fff; }
+.btn-pill.ghost { background: transparent; border: 1px solid var(--border); color: var(--accent-600); }
+.btn-pill { transition: transform 120ms ease, box-shadow 120ms ease; }
+.btn-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(16,24,40,0.06); }
+
+.btn-primary { background: var(--accent); color: #fff; padding:0.5rem 0.9rem; border-radius:0.5rem; border: none; }
+.btn-primary:hover { filter:brightness(0.98); }
+
+/* Alerts with enhanced dark mode support */
+.alert { 
+    padding: 0.75rem 1rem; 
+    border-radius: 0.5rem; 
+    font-weight: 500;
+    position: relative;
+}
+
+/* Light theme alerts */
+.alert.info { background: #eef2ff; color: #bc810b; }
+.alert.success { background: #ecfdf5; color: #065f46; }
+.alert.error { background: #fff1f2; color: #9f1239; }
+
+/* Dark theme alerts with glowing accents */
+.dark .alert {
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+}
+
+.dark .alert.info { 
+    background: linear-gradient(180deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05));
+    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.2),
+                0 0 0 1px rgba(59,130,246,0.1),
+                inset 0 0 20px rgba(59,130,246,0.05);
+    text-shadow: 0 0 20px rgba(59,130,246,0.4);
+}
+
+.dark .alert.success {
+    background: linear-gradient(180deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(16,185,129,0.2),
+                0 0 0 1px rgba(16,185,129,0.1),
+                inset 0 0 20px rgba(16,185,129,0.05);
+    text-shadow: 0 0 20px rgba(16,185,129,0.4);
+}
+
+.dark .alert.error {
+    background: linear-gradient(180deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(239,68,68,0.2),
+                0 0 0 1px rgba(239,68,68,0.1),
+                inset 0 0 20px rgba(239,68,68,0.05);
+    text-shadow: 0 0 20px rgba(239,68,68,0.4);
+}
+
+/* Tables */
+.table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; }
+.table th, .table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+.table thead th { background: var(--card); color: var(--accent-600); font-weight: 600; }
+.table tbody tr:hover { background: rgba(16,24,40,0.02); }
+.table thead th { background: rgba(243,246,255,0.6); }
+.table tbody td { vertical-align: middle; }
+
+/* Form inputs */
+input[type="text"], input[type="search"], textarea, select { padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; background: transparent; transition: box-shadow 120ms, border-color 120ms; }
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-600); box-shadow: 0 6px 18px rgba(37,99,235,0.08); }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 0.6rem; padding:1rem; box-shadow: 0 2px 8px rgba(16,24,40,0.03); }
+.card-title { font-weight:700; color:var(--text); margin-bottom:0.5rem; font-size:1.05rem; }
+
+.hero { padding:2.5rem 1rem; background: linear-gradient(180deg, rgba(59,130,246,0.06), transparent); border-radius:0.6rem; margin-bottom:1.25rem; }
+
+.site-footer { margin-top:3rem; padding:2rem 0; text-align:center; color:var(--muted); font-size:0.9rem; }
+
+.muted-note { color: var(--muted); font-size:0.95rem; }
+
+/* Dark theme cards with glass effect and subtle highlights */
+.dark .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(2,6,23,0.35),
+                0 0 0 1px rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    position: relative;
+}
+
+/* Student status cards with enhanced highlights in dark mode */
+.dark .status-card {
+    transition: all 0.3s ease-out;
+    position: relative;
+    isolation: isolate;
+    z-index: 1;
+}
+
+/* Total students card */
+.dark .status-card.total {
+    background: linear-gradient(180deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.3),
+                0 0 0 1px rgba(59,130,246,0.2),
+                0 0 40px rgba(59,130,246,0.15),
+                inset 0 0 20px rgba(59,130,246,0.1) !important;
+}
+
+/* Active students card */
+.dark .status-card.active {
+    background: linear-gradient(180deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(16,185,129,0.3),
+                0 0 0 1px rgba(16,185,129,0.2),
+                0 0 40px rgba(16,185,129,0.15),
+                inset 0 0 20px rgba(16,185,129,0.1) !important;
+}
+
+/* Graduated students card */
+.dark .status-card.graduated {
+    background: linear-gradient(180deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(124,58,237,0.3),
+                0 0 0 1px rgba(124,58,237,0.2),
+                0 0 40px rgba(124,58,237,0.15),
+                inset 0 0 20px rgba(124,58,237,0.1) !important;
+}
+
+/* Inactive students card */
+.dark .status-card.inactive {
+    background: linear-gradient(180deg, rgba(107,114,128,0.15), rgba(107,114,128,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(107,114,128,0.3),
+                0 0 0 1px rgba(107,114,128,0.2),
+                0 0 40px rgba(107,114,128,0.15),
+                inset 0 0 20px rgba(107,114,128,0.1) !important;
+}
+
+/* Status card hover effects */
+.dark .status-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Add top glow effect for each status card */
+.dark .status-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 50% 0%, 
+        var(--glow-color, rgba(255,255,255,0.4)),
+        transparent 70%);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.dark .status-card.total::after { --glow-color: rgba(59,130,246,0.4); }
+.dark .status-card.active::after { --glow-color: rgba(16,185,129,0.4); }
+.dark .status-card.graduated::after { --glow-color: rgba(124,58,237,0.4); }
+.dark .status-card.inactive::after { --glow-color: rgba(107,114,128,0.4); }
+
+.dark .status-card:hover::after {
+    opacity: 0.7;
+}
+
+/* Enhanced text and icon styles for status cards */
+.dark .status-card .text-2xl {
+    text-shadow: 0 0 30px rgba(255,255,255,0.4),
+                 0 0 10px rgba(255,255,255,0.2);
+    letter-spacing: 0.02em;
+}
+
+.dark .status-card i {
+    opacity: 0.9;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.dark .status-card:hover i {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Add glass effect border glow */
+.dark .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0.1), 
+        rgba(255,255,255,0.03)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                 linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.dark .card-title { 
+    color: var(--text); 
+    font-weight: 600;
+    text-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+/* Enhance form inputs with subtle glow */
+.dark input[type="text"], .dark textarea, .dark select {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text);
+    box-shadow: 0 4px 20px rgba(2,6,23,0.2);
+}
+
+.dark input[type="text"]:focus, .dark textarea:focus, .dark select:focus {
+    border-color: rgba(59,130,246,0.4);
+    box-shadow: 0 0 0 1px rgba(59,130,246,0.1),
+                0 0 20px rgba(59,130,246,0.1);
+}
+.dark .btn-primary { background: var(--accent-600); color: #fff; }
+.dark .btn-ghost { color: var(--text); border-color: rgba(255,255,255,0.04); }
+
+/* Reduce corner radii slightly in dark for a tighter feel */
+.dark .card { border-radius: 0.4rem; }
+
+/* Dark-mode text/color overrides for Tailwind utilities that are static in templates.
+   These rules ensure text and backgrounds are readable in dark theme. Use !important
+   sparingly and only to override inline utility classes like text-gray-900/bg-white. */
+.dark .text-gray-900, .dark .text-gray-800, .dark .text-gray-700 {
+    color: var(--text) !important;
+}
+.dark .text-gray-600, .dark .text-gray-500, .dark .text-gray-400, .dark .text-gray-300 {
+    color: var(--muted) !important;
+}
+.dark .text-gray-200, .dark .text-gray-100 { color: rgba(255,255,255,0.85) !important; }
+
+/* Links and accents in dark mode */
+.dark a { color: var(--accent-600) !important; }
+.dark a:hover { color: var(--accent) !important; text-decoration: underline; }
+
+/* Neutralize white backgrounds so components blend into dark surface */
+.dark .bg-white { background: rgba(255,255,255,0.02) !important; color: var(--text) !important; }
+.dark .bg-gray-50 { background: rgba(255,255,255,0.01) !important; }
+
+/* Tables in dark mode */
+.dark table, .dark th, .dark td { color: var(--text) !important; border-color: rgba(255,255,255,0.04) !important; }
+.dark thead th { background: rgba(255,255,255,0.02) !important; }
+
+/* Ensure icons and small text are visible */
+.dark .fas, .dark i { color: var(--muted) !important; }
+.dark .text-xs, .dark .text-sm { color: var(--muted) !important; }
+
+/* Make headings stand out in dark mode */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark .card-title { color: var(--text) !important; }
+
+/* Utility */
+.container { max-width: 1100px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+
+/* Tooltip styles */
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Card hover effects */
+.stat-card { transition: transform 0.2s, box-shadow 0.2s; }
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* Icon styles */
+.stat-card i { opacity: 0.8; transition: opacity 0.2s; }
+.stat-card:hover i { opacity: 1; }
+
+/* Chart container styles */
+.chart-container { position: relative; margin: 1rem 0; padding: 1rem; background: var(--card); border-radius: 0.5rem; box-shadow: var(--shadow); }
+
+/* Responsive chart sizing */
+@media (max-width: 640px) { .chart-container { height: 300px; } }
+@media (min-width: 641px) { .chart-container { height: 400px; } }
+/* Styles for attendance analytics */
+
+/* Tooltip styles */
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Card hover effects */
+.stat-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon styles */
+.stat-card i {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.stat-card:hover i {
+    opacity: 1;
+}
+
+/* Chart container styles */
+.chart-container {
+    position: relative;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgb(252, 252, 252);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Import card styles */
+.import-card {
+    border: 1px solid rgba(15,23,42,0.05);
+}
+
+.file-name {
+    min-width: 0; /* allow truncation */
+    max-width: 45%;
+}
+
+/* Button utilities */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 0.45rem 0.9rem;
+    border-radius: 0.375rem;
+}
+.btn-primary:hover { filter: brightness(0.95); }
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border); /* neutral */
+    color: var(--accent-600);
+}
+
+/* Text utilities */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--muted); }
+.text-success { color: var(--success-700); }
+.text-danger { color: var(--danger-700); }
+.text-indigo { color: var(--indigo); }
+
+/* Small inline badges used in lists - ensure semantic badge styles */
+.status-badge, .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.status-success { background: rgba(16,185,129,0.08); color: var(--success-700); }
+.status-accent { background: rgba(59,130,246,0.06); color: var(--accent); }
+.status-muted { background: rgba(107,114,128,0.12); color: var(--muted); }
+
+/* Year badges */
+.year-badge { display:inline-flex; align-items:center; gap:0.35rem; padding:0.125rem 0.5rem; border-radius:9999px; font-size:0.75rem; font-weight:600; }
+.year-1 { background: rgba(16,185,129,0.08); color: var(--success-700); }
+.year-2 { background: rgba(49,56,81,0.06); color: var(--accent); }
+.year-3 { background: rgba(124,58,237,0.06); color: #6b21a8; }
+.year-4 { background: rgba(239,68,68,0.06); color: var(--danger-700); }
+
+/* Stat card variants (semantic) */
+.stat-card.primary { background: rgba(49,56,81,0.03); }
+.stat-card.success { background: rgba(16,185,129,0.04); }
+.stat-card.warning { background: rgba(250,204,21,0.06); }
+.stat-card.danger { background: rgba(239,68,68,0.04); }
+
+/* Dark-mode: highly emphasized stat boxes with intense glows */
+.dark .stat-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    box-shadow: 0 8px 32px rgba(2,6,23,0.4),
+                0 0 0 1px rgba(255,255,255,0.15),
+                0 0 40px rgba(255,255,255,0.1),
+                inset 0 0 20px rgba(255,255,255,0.05) !important;
+    color: var(--text) !important;
+    backdrop-filter: blur(20px);
+    position: relative;
+    isolation: isolate;
+    z-index: 1;
+}
+
+/* Add subtle inner glow */
+.dark .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0.12), 
+        rgba(255,255,255,0.03)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                 linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.dark .stat-card:hover {
+    box-shadow: 0 12px 40px rgba(2,6,23,0.5),
+                0 0 0 1px rgba(255,255,255,0.15),
+                0 0 40px rgba(255,255,255,0.1) !important;
+    transform: translateY(-2px);
+}
+
+.dark .stat-card .label,
+.dark .stat-card .subtext,
+.dark .stat-card .stat-label { 
+    color: rgba(255,255,255,0.8) !important; 
+    text-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+.dark .stat-card .value,
+.dark .stat-card .stat-value,
+.dark .stat-card .count,
+.dark .stat-card .number { 
+    color: #ffffff !important; 
+    font-weight: 700;
+    text-shadow: 0 0 30px rgba(255,255,255,0.4),
+                 0 0 10px rgba(255,255,255,0.2),
+                 0 0 5px rgba(255,255,255,0.1);
+    letter-spacing: 0.02em;
+    position: relative;
+}
+
+/* Add subtle scaling on hover */
+.dark .stat-card:hover .value,
+.dark .stat-card:hover .stat-value,
+.dark .stat-card:hover .count,
+.dark .stat-card:hover .number {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+/* Semantic variants in dark mode: intense glows and highlights */
+.dark .stat-card.primary { 
+    background: linear-gradient(180deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.3),
+                0 0 0 1px rgba(59,130,246,0.2),
+                0 0 40px rgba(59,130,246,0.2),
+                inset 0 0 20px rgba(59,130,246,0.1) !important;
+}
+.dark .stat-card.primary i { 
+    color: rgba(59,130,246,1) !important;
+    text-shadow: 0 0 30px rgba(59,130,246,0.8),
+                 0 0 10px rgba(59,130,246,0.4);
+    position: relative;
+}
+/* Add pulsing highlight effect */
+.dark .stat-card.primary::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(59,130,246,0.4),
+        transparent 70%);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.dark .stat-card.success { 
+    background: linear-gradient(180deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(16,185,129,0.3),
+                0 0 0 1px rgba(16,185,129,0.2),
+                0 0 40px rgba(16,185,129,0.2),
+                inset 0 0 20px rgba(16,185,129,0.1) !important;
+}
+.dark .stat-card.success i { 
+    color: rgba(16,185,129,1) !important;
+    text-shadow: 0 0 30px rgba(16,185,129,0.8),
+                 0 0 10px rgba(16,185,129,0.4);
+}
+/* Add success highlight effect */
+.dark .stat-card.success::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(16,185,129,0.4),
+        transparent 70%);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.dark .stat-card.warning { 
+    background: linear-gradient(180deg, rgba(250,204,21,0.2), rgba(250,204,21,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(250,204,21,0.3),
+                0 0 0 1px rgba(250,204,21,0.2),
+                0 0 40px rgba(250,204,21,0.2),
+                inset 0 0 20px rgba(250,204,21,0.1) !important;
+}
+.dark .stat-card.warning i { 
+    color: rgba(250,204,21,1) !important;
+    text-shadow: 0 0 30px rgba(250,204,21,0.8),
+                 0 0 10px rgba(250,204,21,0.4);
+}
+/* Add warning highlight effect */
+.dark .stat-card.warning::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(250,204,21,0.4),
+        transparent 70%);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.dark .stat-card.danger { 
+    background: linear-gradient(180deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05)) !important;
+    box-shadow: 0 8px 32px rgba(239,68,68,0.3),
+                0 0 0 1px rgba(239,68,68,0.2),
+                0 0 40px rgba(239,68,68,0.2),
+                inset 0 0 20px rgba(239,68,68,0.1) !important;
+}
+.dark .stat-card.danger i { 
+    color: rgba(239,68,68,1) !important;
+    text-shadow: 0 0 30px rgba(239,68,68,0.8),
+                 0 0 10px rgba(239,68,68,0.4);
+}
+/* Add danger highlight effect */
+.dark .stat-card.danger::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(239,68,68,0.4),
+        transparent 70%);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+/* Ensure any tailwind utility that forces a dark text on these boxes is neutralized */
+.dark .stat-card .text-gray-900, .dark .stat-card .text-black { color: #ffffff !important; }
+
+/* Ensure colored utility classes used inside stat-card (numbers/icons) become readable in dark */
+.dark .stat-card .text-blue-600,
+.dark .stat-card .text-blue-500,
+.dark .stat-card .text-green-600,
+.dark .stat-card .text-green-500,
+.dark .stat-card .text-indigo-600,
+.dark .stat-card .text-indigo-500,
+.dark .stat-card .text-red-600,
+.dark .stat-card .text-red-500 {
+    color: #ffffff !important;
+}
+
+/* If numbers are direct children without utility classes, catch common elements */
+.dark .stat-card p, .dark .stat-card div {
+    color: inherit !important;
+}
+
+
+/* Progress bars for academic year */
+.progress { height: 0.375rem; background: rgba(16,24,40,0.04); border-radius: 9999px; overflow: hidden; }
+.progress .fill { height: 100%; border-radius: 9999px; background: var(--accent); }
+.progress.year-1 .fill { background: var(--success); width: 25%; }
+.progress.year-2 .fill { background: var(--accent); width: 50%; }
+.progress.year-3 .fill { background: #7c3aed; width: 75%; }
+.progress.year-4 .fill { background: var(--danger); width: 100%; }
+
+.btn:disabled, .btn[aria-disabled='true'] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spinner inside buttons */
+.spinner { font-size: 0.9rem; }
+.spinner.hidden { display: none; }
+
+/* truncate long filenames */
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Responsive chart sizing */
+@media (max-width: 640px) {
+    .chart-container {
+        height: 300px;
+    }
+}
+
+@media (min-width: 641px) {
+    .chart-container {
+        height: 400px;
+    }
+}

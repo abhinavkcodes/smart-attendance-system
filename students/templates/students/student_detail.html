@@ -1,0 +1,88 @@
+{% extends "students/base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <div class="card">
+    <!-- Student Header -->
+    <div class="flex items-start justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900">{{ object.first_name }} {{ object.last_name }}</h2>
+        <p class="text-gray-500">{{ object.enrollment_no }}</p>
+      </div>
+      <div class="flex space-x-2">
+        <a class="btn-ghost inline-flex items-center" href="{% url 'students:list' %}">
+          <i class="fas fa-arrow-left mr-2"></i>Back
+        </a>
+        <a class="btn-primary inline-flex items-center" href="{% url 'students:attendance_student_analytics' object.pk %}">
+          <i class="fas fa-chart-line mr-2"></i>Attendance Analytics
+        </a>
+      </div>
+    </div>
+
+    <!-- Student Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <dl class="space-y-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Email</dt>
+            <dd class="mt-1 text-sm text-gray-900">{{ object.email }}</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Course & Year</dt>
+            <dd class="mt-1 text-sm text-gray-900">{{ object.course }}, {{ object.get_year_display }}</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">GPA</dt>
+            <dd class="mt-1 text-sm text-gray-900">{{ object.gpa }}</dd>
+          </div>
+          {% if object.notes %}
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Notes</dt>
+            <dd class="mt-1 text-sm text-gray-900">{{ object.notes }}</dd>
+          </div>
+          {% endif %}
+        </dl>
+      </div>
+
+      {% if attendance_stats %}
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Attendance Overview</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-sm text-gray-500">Total Sessions</p>
+            <p class="mt-1 text-2xl font-semibold text-gray-900">{{ attendance_stats.total }}</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-4">
+            <p class="text-sm text-gray-500">Present Rate</p>
+            <p class="mt-1 text-2xl font-semibold text-green-600">{{ attendance_stats.present_pct }}%</p>
+          </div>
+          <div class="bg-yellow-50 rounded-lg p-4">
+            <p class="text-sm text-gray-500">Late</p>
+            <p class="mt-1 text-2xl font-semibold text-yellow-600">{{ attendance_stats.late }}</p>
+          </div>
+          <div class="bg-red-50 rounded-lg p-4">
+            <p class="text-sm text-gray-500">Absent</p>
+            <p class="mt-1 text-2xl font-semibold text-red-600">{{ attendance_stats.absent }}</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if object.photo %}
+    <div class="mt-6">
+      <img src="{{ object.photo.url }}" alt="{{ object.first_name }}" class="rounded-lg max-w-xs">
+    </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="mt-6 flex space-x-3">
+      <a href="{% url 'students:edit' object.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+        <i class="fas fa-edit mr-2"></i>Edit
+      </a>
+      <a href="{% url 'students:delete' object.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700">
+        <i class="fas fa-trash mr-2"></i>Delete
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

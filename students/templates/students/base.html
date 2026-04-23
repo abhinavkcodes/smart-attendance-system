@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StudTrack{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Local analytics/import styles -->
+    <link rel="stylesheet" href="{% static 'students/css/analytics.css' %}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="bg-[var(--card)] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- left: logo -->
+                <div class="flex items-center flex-1">
+                    <a href="{% url 'students:list' %}" class="flex items-center space-x-3">
+                        <span class="inline-block rounded-full bg-[var(--border)] p-2">
+                            <i class="fas fa-graduation-cap text-[var(--muted)] text-xl"></i>
+                        </span>
+                        <span class="text-2xl font-extrabold tracking-tight">StudentTracker</span>
+                    </a>
+                </div>
+
+                <!-- center: nav links -->
+                <div class="hidden lg:flex lg:space-x-8 lg:flex-1 lg:justify-center">
+                    <a href="{% url 'students:list' %}" class="nav-link {% if request.resolver_match.url_name == 'list' %}active{% endif %}">All Students</a>
+                    <a href="{% url 'students:attendance_analytics' %}" class="nav-link {% if request.resolver_match.url_name == 'attendance_analytics' %}active{% endif %}">Attendance Analytics</a>
+                </div>
+
+                <!-- right: actions -->
+                <div class="flex items-center justify-end flex-1 space-x-3">
+                    <a href="{% url 'students:import_csv' %}" class="btn-pill ghost hidden sm:inline-flex">Import</a>
+                    <a href="{% url 'students:add' %}" class="btn-pill primary">Add Student</a>
+                    <a href="/admin/" class="btn-pill ghost">Admin</a>
+                    <!-- Theme toggle -->
+                    <button id="theme-toggle" aria-label="Toggle color theme" class="btn-pill ghost" title="Toggle theme">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <!-- Mobile menu button -->
+                    <div class="-mr-2 flex items-center lg:hidden">
+                        <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--border)] focus:outline-none">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="sm:hidden mobile-menu hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="{% url 'students:list' %}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-[var(--muted)] hover:bg-[var(--border)] hover:text-[var(--text)]">All Students</a>
+                <a href="{% url 'students:add' %}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[var(--muted)] hover:bg-[var(--border)] hover:text-[var(--text)]">Add Student</a>
+                <a href="{% url 'students:import_csv' %}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[var(--muted)] hover:bg-[var(--border)] hover:text-[var(--text)]">Import CSV</a>
+                <a href="{% url 'students:export_csv' %}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[var(--muted)] hover:bg-[var(--border)] hover:text-[var(--text)]">Export CSV</a>
+                <a href="/admin/" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[var(--muted)] hover:bg-[var(--border)] hover:text-[var(--text)]">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    
+
+    <!-- Main Content -->
+    <main class="py-6">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if messages %}
+            <div class="mb-6 space-y-2">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% else %}info{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.mobile-menu-button');
+            const menu = document.querySelector('.mobile-menu');
+            if (button && menu) {
+                button.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // Theme toggle: persists choice in localStorage and toggles the `.dark` class on <html>
+        (function() {
+            function applyTheme(theme) {
+                const el = document.documentElement;
+                if (theme === 'dark') {
+                    el.classList.add('dark');
+                    document.getElementById('theme-icon').className = 'fas fa-sun';
+                } else {
+                    el.classList.remove('dark');
+                    document.getElementById('theme-icon').className = 'fas fa-moon';
+                }
+            }
+
+            // Initial load: prefer saved setting, otherwise system preference
+            const saved = localStorage.getItem('site-theme');
+            if (saved) {
+                applyTheme(saved);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyTheme('dark');
+            }
+
+            // Toggle button
+            document.addEventListener('DOMContentLoaded', function() {
+                const btn = document.getElementById('theme-toggle');
+                if (!btn) return;
+                btn.addEventListener('click', function() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    const next = isDark ? 'light' : 'dark';
+                    localStorage.setItem('site-theme', next);
+                    applyTheme(next);
+                    // Dispatch theme change event for charts
+                    document.documentElement.dispatchEvent(
+                        new CustomEvent('themeChanged', {
+                            detail: { isDark: next === 'dark' }
+                        })
+                    );
+                });
+            });
+        })();
+    </script>
+
+    <!-- Local analytics/import scripts -->
+    <script src="{% static 'students/js/analytics.js' %}"></script>
+    <footer class="site-footer">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-sm muted-note">© {{ now|date:"Y" }} StudentTracker — Built with Django. View on your local dev server.</div>
+        </div>
+    </footer>
+</body>
+</html>
